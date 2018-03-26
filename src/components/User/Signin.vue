@@ -10,6 +10,7 @@
 				<v-card>
 					<v-card-text>
 						<v-container>
+							<div class="headline text-md-center">Sign In</div>
 							<form @submit.prevent="onSignin">
 								<v-layout row>
 									<v-flex xs12>
@@ -36,13 +37,17 @@
 									</v-flex>
 								</v-layout>
 								<v-layout row>
-									<v-flex xs12>
+									<v-flex class="signin-container" xs12>
 									    <v-btn type="submit" :disabled="loading" :loading="loading">
 									    	Sign in
 									        <span slot="loader" class="custom-loader">
 									        	<v-icon light>cached</v-icon>
 									        </span>
 									    </v-btn>
+									    <div class="register">
+									    	<span>Not registered?</span>
+									    	<a router to="/signup">Sign Up</a>
+									    </div>
 									</v-flex>
 								</v-layout>
 							</form>
@@ -93,5 +98,12 @@
 
 <style lang="stylus">
 	@import '../../../node_modules/vuetify/src/stylus/settings/_colors'
-	.btn[type="submit"] { background-color: $blue.darken-2 !important; }
+	.btn[type="submit"] { background-color: $blue.darken-2 !important; flex: 2;}
+	.signin-container, .register {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.register { flex: 2; }
+	.register a { margin-left: 6px; }
 </style>
