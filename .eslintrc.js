@@ -1,19 +1,27 @@
 module.exports = {
-	"extends": "eslint-config-airbnb",
-	"parser": "babel-eslint",
-	"env": {
-		"browser": true,
-		"node": true,
-		"mocha": true
+	root: true,
+	parser: 'babel-eslint',
+	parserOptions: {
+		sourceType: 'module'
 	},
+	env: {
+		browser: true,
+	},
+	// https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
+	extends: 'standard',
+	// required to lint *.vue files
+	plugins: [
+	    'html'
+	],
 	"rules": {
+		"semi": "off",
+		"space-before-function-paren": "off",
 		"indent": [2, "tab"],
 		"no-tabs": 0,
 		"no-console": 0,
 		"no-unused-vars": [
 			"error", { "args": "none" }
 		],
-		"import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
 		"comma-dangle": ["error", "never"],
 		"arrow-body-style": 0,
 		"import/no-dynamic-require": "off",

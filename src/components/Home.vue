@@ -1,39 +1,39 @@
 <template>
-    <v-container>
-        <v-layout row wrap>
-            <v-flex xs12 sm6 class="text-xs-center text-sm-right">
-                <!-- <v-btn large router to="/meetups" class="info">Explore Meetups</v-btn> -->
-            </v-flex>
-            <v-flex xs12 sm6 class="text-xs-center text-sm-left">
-                <!-- <v-btn large router to="/meetup/new" class="info">Organize Meetup</v-btn> -->
-            </v-flex>
-        </v-layout>
-        <v-layout>
-            <v-flex xs12 class="text-xs-center">
-                <v-progress-circular
-                    indeterminate
-                    class="primary--text"
-                    :width="7"
-                    :size="70">
-                </v-progress-circular>
-            </v-flex>
-        </v-layout>
-    </v-container>
+	<v-container>
+		<v-layout row wrap>
+			<v-flex xs12 sm6 class="text-xs-center text-sm-right">
+				<!-- <v-btn large router to="/meetups" class="info">Explore Meetups</v-btn> -->
+			</v-flex>
+			<v-flex xs12 sm6 class="text-xs-center text-sm-left">
+				<!-- <v-btn large router to="/meetup/new" class="info">Organize Meetup</v-btn> -->
+			</v-flex>
+		</v-layout>
+		<v-layout>
+			<v-flex xs12 class="text-xs-center">
+				<v-progress-circular
+					indeterminate
+					class="primary--text"
+					:width="7"
+					:size="70">
+				</v-progress-circular>
+			</v-flex>
+		</v-layout>
+	</v-container>
 </template>
 
 <script>
-    export default {
+	export default {
 
-    }
+	}
 </script>
 
 <style scoped>
-    .title {
-    position: absolute;
-    bottom: 50px;
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    font-size: 2em;
-    padding: 20px;
-    }
+	.title {
+		position: absolute;
+		bottom: 50px;
+		background-color: rgba(0,0,0,0.5);
+		color: white;
+		font-size: 2em;
+		padding: 20px;
+	}
 </style>

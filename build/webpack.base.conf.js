@@ -1,3 +1,4 @@
+/* eslint-disable */
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
@@ -21,7 +22,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src')
+      '~': resolve('src')
     }
   },
   module: {
