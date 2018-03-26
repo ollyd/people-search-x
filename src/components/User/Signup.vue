@@ -5,7 +5,7 @@
 				<app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
 			</v-flex>
 		</v-layout>
-		<v-layout row>
+		<v-layout row align-center>
 			<v-flex xs12 sm6 offset-sm3>
 				<v-card>
 					<v-card-text>
