@@ -1,5 +1,5 @@
 <template>
-	<v-app id="inspire" dark>
+	<v-app dark>
 		<v-navigation-drawer
 			clipped
 			fixed
@@ -27,7 +27,7 @@
 		</v-navigation-drawer>
 		<v-toolbar app fixed clipped-left>
 			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-			<v-toolbar-title>Application</v-toolbar-title>
+			<v-toolbar-title>StackMark</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-xs-only">
 				<v-btn
@@ -88,7 +88,15 @@
 	}
 </script>
 
-<style>
+<style lang="stylus">
+	@import '../node_modules/vuetify/src/stylus/settings/_colors'
+	.toolbar__content { border-bottom: 1px solid $blue.darken-2; }
+	.btn--active .btn__content:before, .btn:focus .btn__content:before {
+		background-color: $grey.darken-4;
+	}
+	.btn:hover .btn__content:before {
+		background-color: $grey.darken-2;
+	}
 	main {
 		display: flex;
 		justify-content: center;

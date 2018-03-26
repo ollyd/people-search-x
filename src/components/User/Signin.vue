@@ -90,3 +90,8 @@
 		}
 	}
 </script>
+
+<style lang="stylus">
+	@import '../../../node_modules/vuetify/src/stylus/settings/_colors'
+	.btn[type="submit"] { background-color: $blue.darken-2 !important; }
+</style>
