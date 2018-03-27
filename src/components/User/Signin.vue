@@ -1,10 +1,5 @@
 <template>
 	<v-container>
-		<v-layout row v-if="error">
-			<v-flex xs12 sm6 offset-sm3>
-				<app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-			</v-flex>
-		</v-layout>
 		<v-layout row>
 			<v-flex xs12 sm6 offset-sm3>
 				<v-card>
@@ -54,6 +49,11 @@
 						</v-container>
 					</v-card-text>
 				</v-card>
+			</v-flex>
+		</v-layout>
+		<v-layout row v-if="error">
+			<v-flex xs12 sm6 offset-sm3>
+				<app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
 			</v-flex>
 		</v-layout>
 	</v-container>

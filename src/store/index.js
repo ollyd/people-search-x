@@ -25,52 +25,55 @@ export const store = new Vuex.Store({
 		}
 	},
 	actions: {
-		signUserUp ({commit}, payload) {
+		userCredentials({ commit }, user) {
+			commit('setLoading', false);
+			const setUser = {
+				id: user.uid
+			}
+			commit('setUser', setUser);
+		},
+		errorCode({ commit }, error) {
+			let customMessage;
+			switch (error.code) {
+			case 'EMAIL_ALREADY_EXISTS':
+				customMessage = 'This email is already registered.'
+				break;
+			case 'auth/user-not-found':
+				customMessage = 'The email address provided can\'t be found.'
+				break;
+			default:
+				customMessage = error
+			}
+			commit('setLoading', false);
+			commit('setError', customMessage);
+			console.log(customMessage);
+		},
+		signUserUp ({ commit, dispatch }, payload) {
 			commit('setLoading', true);
 			commit('clearError');
 			firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-				.then(
-					user => {
-						commit('setLoading', false);
-						const newUser = {
-							id: user.uid
-						}
-						commit('setUser', newUser);
-					}
-				)
-				.catch(
-					error => {
-						commit('setLoading', false);
-						commit('setError', error);
-						console.log(error);
-					}
-				)
+				.then(user => {
+					dispatch('userCredentials', user);
+				})
+				.catch(error => {
+					dispatch('errorCode', error);
+				})
 		},
-		signUserIn ({commit}, payload) {
+		signUserIn ({ commit, dispatch }, payload) {
 			commit('setLoading', true);
 			commit('clearError');
 			firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-				.then(
-					user => {
-						commit('setLoading', false);
-						const newUser = {
-							id: user.uid
-						}
-						commit('setUser', newUser);
-					}
-				)
-				.catch(
-					error => {
-						commit('setLoading', false);
-						commit('setError', error);
-						console.log(error);
-					}
-				)
+				.then(user => {
+					dispatch('userCredentials', user);
+				})
+				.catch(error => {
+					dispatch('errorCode', error);
+				})
 		},
-		autoSignIn ({commit}, payload) {
+		autoSignIn ({ commit }, payload) {
 			commit('setUser', { id: payload.uid });
 		},
-		logout ({commit}) {
+		logout ({ commit }) {
 			firebase.auth().signOut()
 			commit('setUser', null);
 		},

@@ -6,6 +6,9 @@ import App from './App.vue';
 import router from './router';
 import { store } from './store';
 import firebaseConfig from '../firebase.config';
+import AlertCmp from './components/Shared/Alert.vue';
+
+Vue.component('app-alert', AlertCmp);
 
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
