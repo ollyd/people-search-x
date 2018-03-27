@@ -60,6 +60,8 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
+
 	export default {
 		data() {
 			return {
@@ -68,15 +70,11 @@
 			}
 		},
 		computed: {
-			user() {
-				return this.$store.getters.user;
-			},
-			error() {
-				return this.$store.getters.error;
-			},
-			loading() {
-				return this.$store.getters.loading;
-			}
+			...mapGetters([
+				'user',
+				'error',
+				'loading'
+			])
 		},
 		watch: {
 			user(value) {

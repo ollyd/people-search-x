@@ -1,4 +1,12 @@
 {
+  "presets": [
+    "env",
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-es2015-destructuring"
+  ],
   "env": {
     "browser": {
       "presets": [
@@ -12,7 +20,7 @@
       "plugins": [
         "syntax-dynamic-import",
         "transform-object-rest-spread",
-        "transform-object-assign"
+        "transform-es2015-destructuring"
       ]
     },
     "es6": {
@@ -24,7 +32,8 @@
          }]
 	 ],
 	 "plugins": [
-	   "transform-object-rest-spread"
+	   "transform-object-rest-spread",
+	   "transform-es2015-destructuring"
 	 ]
     }
   }

@@ -18,6 +18,7 @@ export const store = new Vuex.Store({
 			state.loading = payload;
 		},
 		setError(state, payload) {
+			console.log(payload);
 			state.error = payload;
 		},
 		clearError(state) {
@@ -32,21 +33,24 @@ export const store = new Vuex.Store({
 			}
 			commit('setUser', setUser);
 		},
-		errorCode({ commit }, error) {
-			let customMessage;
-			switch (error.code) {
-			case 'EMAIL_ALREADY_EXISTS':
-				customMessage = 'This email is already registered.'
+		errorCode({ commit }, err) {
+			let error;
+			switch (err.code) {
+			case 'auth/email-already-in-use':
+				error.message = 'The email address provided is already registered.'
 				break;
 			case 'auth/user-not-found':
-				customMessage = 'The email address provided can\'t be found.'
+				error.message = 'The email address provided isn\'t recognised.'
+				break;
+			case 'auth/wrong-password':
+				error.message = 'The password provided is incorrect.'
 				break;
 			default:
-				customMessage = error
+				error = err
 			}
 			commit('setLoading', false);
-			commit('setError', customMessage);
-			console.log(customMessage);
+			commit('setError', error);
+			console.log(error);
 		},
 		signUserUp ({ commit, dispatch }, payload) {
 			commit('setLoading', true);
@@ -55,8 +59,8 @@ export const store = new Vuex.Store({
 				.then(user => {
 					dispatch('userCredentials', user);
 				})
-				.catch(error => {
-					dispatch('errorCode', error);
+				.catch(err => {
+					dispatch('errorCode', err);
 				})
 		},
 		signUserIn ({ commit, dispatch }, payload) {
@@ -66,8 +70,8 @@ export const store = new Vuex.Store({
 				.then(user => {
 					dispatch('userCredentials', user);
 				})
-				.catch(error => {
-					dispatch('errorCode', error);
+				.catch(err => {
+					dispatch('errorCode', err);
 				})
 		},
 		autoSignIn ({ commit }, payload) {
