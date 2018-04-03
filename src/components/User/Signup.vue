@@ -5,6 +5,7 @@
 				<v-card>
 					<v-card-text>
 						<v-container>
+							<div class="headline">Sign Up</div>
 							<form @submit.prevent="onSignup">
 								<v-layout row>
 									<v-flex xs12>
@@ -43,13 +44,17 @@
 									</v-flex>
 								</v-layout>
 								<v-layout row>
-									<v-flex xs12>
+									<v-flex  class="signup-container" xs12>
 										<v-btn type="submit" :disabled="loading" :loading="loading">
 										Sign up
 										 <span slot="loader" class="custom-loader">
 											<v-icon light>cached</v-icon>
 										 </span>
 										</v-btn>
+										<div class="signin">
+											<span>Already registered?</span>
+											<router-link class="signin-link" to="/signin">Sign In</router-link>
+										</div>
 									</v-flex>
 								</v-layout>
 							</form>
@@ -67,6 +72,8 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
+
 	export default {
 		data() {
 			return {
@@ -79,26 +86,22 @@
 			comparePasswords() {
 				return this.password !== this.confirmPassword ? 'Passwords do not match' : '';
 			},
-			user() {
-				return this.$store.getters.user;
-			},
-			error() {
-				return this.$store.getters.error;
-			},
-			loading() {
-				return this.$store.getters.loading;
-			}
+			...mapGetters([
+				'user',
+				'error',
+				'loading'
+			])
 		},
 		watch: {
-			user(value) {
+			user (value) {
 				if (value !== null && value !== undefined) {
-					this.$router.push('/');
+					this.$router.push('/')
 				}
 			}
 		},
 		methods: {
 			onSignup() {
-				this.$store.dispatch('signUserUp', {email: this.email, password: this.password});
+				this.$store.dispatch('signUserUp', { email: this.email, password: this.password });
 			},
 			onDismissed() {
 				this.$store.dispatch('clearError');
@@ -109,5 +112,26 @@
 
 <style lang="stylus">
 	@import '../../../node_modules/vuetify/src/stylus/settings/_colors'
+	.container { padding: 0; }
+	.headline { text-align: center; }
 	.btn[type="submit"] { background-color: $blue.darken-2 !important; }
+	.signup-container, .signin {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.signin { flex: 2; }
+	.signin-link { text-decoration: none; padding-left: 6px; }
+
+	@media only screen and (max-width: 599px) {
+		.container { margin-top:28px }
+		.headline {
+			font-size: 16px !important;
+			line-height: 16px !important;
+		}
+		.signup-container {
+			flex-direction: column;
+		}
+		.btn[type="submit"] { width: 100%; flex: initial; margin-bottom: 12px; }
+	}
 </style>

@@ -5,44 +5,44 @@
 				<v-card>
 					<v-card-text>
 						<v-container>
-							<div class="headline text-md-center">Sign In</div>
+							<div class="headline">Sign In</div>
 							<form @submit.prevent="onSignin">
 								<v-layout row>
 									<v-flex xs12>
 										<v-text-field
-									      	name="email"
-									      	label="Mail"
-									      	id="email"
-									      	v-model="email"
-									      	type="email"
-									      	required>
-									    </v-text-field>
+											name="email"
+											label="Mail"
+											id="email"
+											v-model="email"
+											type="email"
+											required>
+										</v-text-field>
 									</v-flex>
 								</v-layout>
 								<v-layout row>
 									<v-flex xs12>
-									    <v-text-field
-									    	name="password"
-									    	label="Password"
-									    	id="password"
-									    	v-model="password"
-									    	type="password"
-									    	required>
-									    </v-text-field>
+										<v-text-field
+											name="password"
+											label="Password"
+											id="password"
+											v-model="password"
+											type="password"
+											required>
+										</v-text-field>
 									</v-flex>
 								</v-layout>
 								<v-layout row>
 									<v-flex class="signin-container" xs12>
-									    <v-btn type="submit" :disabled="loading" :loading="loading">
-									    	Sign in
-									        <span slot="loader" class="custom-loader">
-									        	<v-icon light>cached</v-icon>
-									        </span>
-									    </v-btn>
-									    <div class="register">
-									    	<span>Not registered?</span>
-									    	<a router to="/signup">Sign Up</a>
-									    </div>
+										<v-btn type="submit" :disabled="loading" :loading="loading">
+											Sign in
+											<span slot="loader" class="custom-loader">
+												<v-icon light>cached</v-icon>
+											</span>
+										</v-btn>
+										<div class="register">
+											<span>Not registered?</span>
+											<router-link class="signup-link" to="/signup">Sign Up</router-link>
+										</div>
 									</v-flex>
 								</v-layout>
 							</form>
@@ -77,9 +77,9 @@
 			])
 		},
 		watch: {
-			user(value) {
+			user (value) {
 				if (value !== null && value !== undefined) {
-					this.$router.push('/');
+					this.$router.push('/')
 				}
 			}
 		},
@@ -96,12 +96,26 @@
 
 <style lang="stylus">
 	@import '../../../node_modules/vuetify/src/stylus/settings/_colors'
-	.btn[type="submit"] { background-color: $blue.darken-2 !important; flex: 2;}
+	.container { padding: 0; }
+	.headline { text-align: center; }
+	.btn[type="submit"] { background-color: $blue.darken-2 !important; flex: 2; }
 	.signin-container, .register {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 	.register { flex: 2; }
-	.register a { margin-left: 6px; }
+	.signup-link { text-decoration: none; padding-left: 6px; }
+
+	@media only screen and (max-width: 599px) {
+		.container { margin-top:28px }
+		.headline {
+			font-size: 16px !important;
+			line-height: 16px !important;
+		}
+		.signin-container {
+			flex-direction: column;
+		}
+		.btn[type="submit"] { width: 100%; flex: initial; margin-bottom: 12px; }
+	}
 </style>
