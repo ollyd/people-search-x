@@ -1,6 +1,7 @@
 <template>
-	<v-app>
+	<v-app dark>
 		<v-navigation-drawer
+			disable-resize-watcher
 			clipped
 			fixed
 			v-model="drawer"
@@ -25,7 +26,7 @@
 				</v-list-tile>
 			</v-list>
 		</v-navigation-drawer>
-		<v-toolbar app fixed clipped-left>
+		<v-toolbar app fixed clipped-left class="cyan darken-4">
 			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 			<v-toolbar-title>StackMark</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -69,6 +70,7 @@
 
 <style lang="stylus">
 	@import '../node_modules/vuetify/src/stylus/settings/_colors'
+	.toolbar { box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.1); }
 	.btn--active .btn__content:before, .btn:focus .btn__content:before {
 		background-color: $grey.darken-4;
 	}
