@@ -13,8 +13,8 @@ export default new Router({
 		{
 			path: '/',
 			name: 'Home',
-			component: Home,
-			beforeEnter: AuthGuard
+			component: Home
+			// beforeEnter: AuthGuard
 		},
 		{
 			path: '/profile',

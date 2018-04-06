@@ -7,9 +7,8 @@ import App from './App.vue';
 import router from './router';
 import { store } from './store';
 import firebaseConfig from '../firebase.config';
-import algoliaConfig from '../algolia.config';
+// import algoliaConfig from '../algolia.config';
 import AlertCmp from './components/Shared/Alert.vue';
-
 
 Vue.component('app-alert', AlertCmp);
 Vue.use(InstantSearch);
@@ -31,8 +30,8 @@ new Vue({
 			}
 		});
 
-		// configure algolia
-		const algolia = algoliasearch(algoliaConfig.algoliaAppID, algoliaConfig.algoliaApiKey);
-		algolia.initIndex(algoliaConfig.algoliaIndexName);
+		// // configure algolia
+		// const algolia = algoliasearch(algoliaConfig.algoliaAppID, algoliaConfig.algoliaApiKey);
+		// algolia.initIndex(algoliaConfig.algoliaIndexName);
 	}
 });
