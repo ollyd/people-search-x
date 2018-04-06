@@ -26,7 +26,7 @@
 								</div>
 							</v-card-title>
 							<v-card-actions>
-								<v-btn flat color="cyan accent-2">View Profile</v-btn>
+								<v-btn flat color="cyan accent-1">View Profile</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-flex>
@@ -44,7 +44,7 @@
 								</div>
 							</v-card-title>
 							<v-card-actions>
-								<v-btn flat color="cyan accent-2">View Profile</v-btn>
+								<v-btn flat color="cyan accent-1">View Profile</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-flex>
@@ -62,7 +62,7 @@
 								</div>
 							</v-card-title>
 							<v-card-actions>
-								<v-btn flat color="cyan accent-2">View Profile</v-btn>
+								<v-btn flat color="cyan accent-1">View Profile</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-flex>
@@ -80,7 +80,7 @@
 								</div>
 							</v-card-title>
 							<v-card-actions>
-								<v-btn flat color="cyan accent-2">View Profile</v-btn>
+								<v-btn flat color="cyan accent-1">View Profile</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-flex>
@@ -117,24 +117,25 @@
 		font-size: 2em;
 		padding: 20px;
 	}*/
+	.btn { text-transform: initial; }
 	.avatar-container {
 		justify-content: center;
 		align-items: center;
 		position: relative;
-		height: 55px;
-		border-bottom: 3px solid #18FFFF;
+		height: 54px;
+		border-bottom: 3px solid #84FFFF;
 	}
 	.avatar {
-		position:absolute;
-		top:28%;
-		left:50%;
-		transform:translate(-50%,0%);
-		border: 3px solid #18FFFF !important;
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		transform: translate(-50%,0%);
+		border: 3px solid #84FFFF !important;
 	}
 	.card__title--primary {
 		padding-top: 35px !important;
 		text-align: center;
 	}
-	.card__actions { border-top: 1px solid #18FFFF !important; justify-content: center; }
-	.card__actions .btn { border: 1px solid #18FFFF !important; }
+	.card__actions { border-top: 1px solid #84FFFF !important; justify-content: center; }
+	.card__actions .btn { border: 1px solid #84FFFF !important; }
 </style>

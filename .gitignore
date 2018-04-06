@@ -4,6 +4,7 @@ dist/
 npm-debug.log
 yarn-error.log
 firebase.config.js
+algolia.config.js
 
 # Editor directories and files
 .idea
