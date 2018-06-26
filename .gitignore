@@ -5,6 +5,11 @@ npm-debug.log
 yarn-error.log
 firebase.config.js
 algolia.config.js
+firebase-functions/functions/node_modules/
+firebase-functions/functions/.config.js
+firebase-functions/functions/firebase-debug.log
+firebase-functions/.firebaserc
+firebase-functions/firebase.json
 
 # Editor directories and files
 .idea

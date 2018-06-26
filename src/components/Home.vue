@@ -1,6 +1,12 @@
 <template>
 	<v-container grid-list-xl fill-height>
-		<ais-index :index-name="credentials().algoliaIndexName" :appId="credentials().algoliaAppID" :apiKey="credentials().algoliaApiKey">
+		<ais-index
+			:index-name="credentials().algoliaIndexName"
+			:appId="credentials().algoliaAppID"
+			:apiKey="credentials().algoliaApiKey"
+			:query-parameters="{
+				restrictSearchableAttributes: ['Name', 'Email']
+			}">
 			<v-layout row wrap>
 				<v-flex xs12 md4 fill-height>
 					<v-card class="filter-container">
@@ -10,12 +16,11 @@
 								<h3 class="subheading">Search Filters</h3>
 							</v-flex>
 							<v-flex class="search-box-container">
-								<ais-search-box :searchOnEnterKeyPressOnly="true">
+								<ais-search-box>
 									<div class="input-group input-group--text-field primary--text" v-bind:class="{ 'input-group--focused': focused }">
-										<label for="name-search">Search by name</label>
+										<label for="name-search">Search by name or email</label>
 										<div class="input-group__input">
 											<ais-input
-												attribute-name="Name"
 												v-on:focus.native="onFocus"
 												v-on:blur.native="onBlur"
 												id="name-search"
@@ -26,16 +31,27 @@
 										</div>
 										<div class="input-group__details"><!----></div>
 
-										<!-- <span class="input-group-btn">
+										<span class="input-group-btn">
 											<ais-clear :classNames="{'ais-clear': 'btn btn-default'}">
-												<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												<v-icon size="18px">remove</v-icon>
 											</ais-clear>
 											<button class="btn btn-default" type="submit">
-												<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+												<v-icon size="18px">search</v-icon>
 											</button>
-										</span> -->
+										</span>
 									</div><!-- /input-group -->
 								</ais-search-box>
+							</v-flex>
+							<ais-refinement-list attribute-name="Skills">
+								<h3 slot="skills">Skills</h3>
+							</ais-refinement-list>
+						</v-layout>
+
+						<v-layout>
+							<v-flex>
+								<multiselect :options="skills()" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
+									<template slot="tag" slot-scope="props"><span class="custom__tag"><span>{{ props.option.language }}</span><span class="custom__remove" @click="props.remove(props.option)">❌</span></span></template>
+							  </multiselect>
 							</v-flex>
 						</v-layout>
 
@@ -53,20 +69,6 @@
 								}">
 									<h3 slot="header">Price</h3>
 								</ais-price-range>
-
-								<ais-refinement-list attribute-name="materials" :classNames="{
-									'ais-refinement-list__count': 'badge',
-									'ais-refinement-list__item': 'checkbox'
-								}">
-									<h3 slot="header">Material</h3>
-								</ais-refinement-list>
-
-								<ais-refinement-list attribute-name="colors" :classNames="{
-									'ais-refinement-list__count': 'badge',
-									'ais-refinement-list__item': 'checkbox'
-								}">
-									<h3 slot="header">Color</h3>
-								</ais-refinement-list>
 							</div>
 							<!-- <div class="col-md-10 col-sm-9">
 								<div class="search-controls form-inline">
@@ -94,22 +96,23 @@
 							<template slot-scope="{ result }">
 								<div class="search-result">
 									<card></card>
-									<img class="result__image img-responsive" :src="result.image">
 
+									<div>{{skills(result['Skills'])}}</div>
+									<img class="result__image img-responsive" :src="result.image">
 									<div class="result__info">
 										<h2 class="result__name">
-											<ais-highlight :result="result" attribute-name="name"/>
+											<ais-highlight :result="result" attribute-name="Name"/>
 										</h2>
-										<div class="result__type">
-											<ais-highlight :result="result" attribute-name="type"/>
-										</div>
+										<h2 class="result__skills">
+											<ais-highlight :result="result" attribute-name="Skills" v-model="result" v-on:change="facets()"/>
+										</h2>
 										<div class="result__rating">
 											<template v-for="n in 5">
 												<span v-if="n <= result.rating" class="result__star" :key="n"></span>
 												<span v-else class="result__star--empty" :key="n"></span>
 											</template>
 										</div>
-										<div class="result__price">${{result.price}}</div>
+										<div class="result__price">${{result['Hourly Rate']}}</div>
 									</div>
 								</div>
 							</template>
@@ -142,14 +145,17 @@
 <script>
 	import Card from '~/components/Card';
 	import AlgoliaCreds from '../../algolia.config.js';
+	import Multiselect from 'vue-multiselect';
 
 	export default {
 		components: {
-			Card
+			Card,
+			Multiselect
 		},
 		data() {
 			return {
-				focused: false
+				focused: false,
+				options: []
 			}
 		},
 		methods: {
@@ -161,7 +167,14 @@
 			},
 			credentials() {
 				return AlgoliaCreds;
+			},
+			skills(result) {
+				console.log(result, 'skills');
+				return result;
 			}
+		},
+		computed: {
+
 		}
 	}
 </script>
