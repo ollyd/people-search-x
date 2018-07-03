@@ -41,14 +41,25 @@ exports.reindexFirestoreDataToAlgolia = functions.https.onRequest((req, res) => 
 });
 
 const algoliaSync = (record, action) => {
-	return index.saveObject(record)
-		.then(() => {
-			console.log(`Firebase object ${action} in Algolia:`, record.objectID);
-		})
-		.catch(error => {
-			console.error(`Unable to ${action} person in Algolia:`, error);
-			process.exit(1);
-		});
+	if(action === 'delete') {
+		return index.deleteObject(record)
+			.then(() => {
+				console.log(`Firebase object ${action} in Algolia:`, record);
+			})
+			.catch(error => {
+				console.error(`Unable to ${action} person in Algolia:`, error);
+				process.exit(1);
+			});
+	} else {
+		return index.saveObject(record)
+			.then(() => {
+				console.log(`Firebase object ${action} in Algolia:`, record.objectID);
+			})
+			.catch(error => {
+				console.error(`Unable to ${action} person in Algolia:`, error);
+				process.exit(1);
+			});
+	}
 }
 
 exports.addIndexRecord = peopleDocument.onCreate((person, context) => {
@@ -65,5 +76,5 @@ exports.updateIndexRecord = peopleDocument.onUpdate((person, context) => {
 
 exports.deleteIndexRecord = peopleDocument.onDelete((person, context) => {
 	const objectID = context.params.id;
-	return algoliaSync(record, 'delete');
+	return algoliaSync(objectID, 'delete');
 });

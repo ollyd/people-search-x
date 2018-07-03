@@ -181,7 +181,7 @@
 
 <style scoped>
 	.ais-index { margin: 12px 0; }
-	.container { padding: 64px 0 0 0; }
+	.container { padding: 64px 0 0 0; max-width: 100% !important;}
 	.filter-container { display: flex; flex-direction: column; height: 100% !important; padding: 12px; }
 	.filter-title { display: flex; border-bottom: 1px solid #616161; }
 	.filter-title .subheading { padding-left: 6px; font-weight: 500; }

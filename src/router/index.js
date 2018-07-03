@@ -4,6 +4,7 @@ import Home from '~/components/Home';
 import Profile from '~/components/User/Profile';
 import Signup from '~/components/User/Signup';
 import Signin from '~/components/User/Signin';
+import ManageContacts from '~/components/User/ManageContacts';
 import AuthGuard from './auth-guard';
 
 Vue.use(Router);
@@ -31,6 +32,11 @@ export default new Router({
 			path: '/signin',
 			name: 'Signin',
 			component: Signin
+		},
+		{
+			path: '/manage-contacts',
+			name: 'Manage',
+			component: ManageContacts
 		}
 	],
 	mode: 'history'
