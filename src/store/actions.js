@@ -33,10 +33,9 @@ export default {
 				newSkills.push(skill);
 			}
 		})
-		if(newSkills.length) {
-			return;
+		if(newSkills.length > 0) {
+			dispatch('INDEX_NEW_SKILLS', newSkills);
 		}
-		dispatch('INDEX_NEW_SKILLS', newSkills);
 	},
 	INDEX_NEW_SKILLS({ commit, state }, newSkills) {
 		newSkills = newSkills.concat(state.skills);

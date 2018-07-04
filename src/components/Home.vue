@@ -7,8 +7,8 @@
 			:query-parameters="{
 				restrictSearchableAttributes: ['Name', 'Email']
 			}">
-			<v-layout row wrap>
-				<v-flex xs12 md4 fill-height>
+			<v-layout xs12 row wrap>
+				<v-flex xs12 md4 fill-height style="flex: 1;">
 					<v-card class="filter-container">
 						<v-layout column>
 							<v-flex class="filter-title">
@@ -90,31 +90,33 @@
 						</div>
 					</v-card>
 				</v-flex>
-				<v-flex xs12 md8 fill-height>
+				<v-flex fill-height>
 					<v-layout row wrap>
 						<ais-results>
 							<template slot-scope="{ result }">
-								<div class="search-result">
-									<card></card>
+								<v-flex xs12 md6>
+									<div class="search-result">
+										<card></card>
 
-									<div>{{skills(result['Skills'])}}</div>
-									<img class="result__image img-responsive" :src="result.image">
-									<div class="result__info">
-										<h2 class="result__name">
-											<ais-highlight :result="result" attribute-name="Name"/>
-										</h2>
-										<h2 class="result__skills">
-											<ais-highlight :result="result" attribute-name="Skills" v-model="result" v-on:change="facets()"/>
-										</h2>
-										<div class="result__rating">
-											<template v-for="n in 5">
-												<span v-if="n <= result.rating" class="result__star" :key="n"></span>
-												<span v-else class="result__star--empty" :key="n"></span>
-											</template>
+										<div>{{skills(result['Skills'])}}</div>
+										<img class="result__image img-responsive" :src="result.image">
+										<div class="result__info">
+											<h2 class="result__name">
+												<ais-highlight :result="result" attribute-name="Name"/>
+											</h2>
+											<h2 class="result__skills">
+												<ais-highlight :result="result" attribute-name="Skills" v-model="result" v-on:change="facets()"/>
+											</h2>
+											<div class="result__rating">
+												<template v-for="n in 5">
+													<span v-if="n <= result.rating" class="result__star" :key="n"></span>
+													<span v-else class="result__star--empty" :key="n"></span>
+												</template>
+											</div>
+											<div class="result__price">${{result['Hourly Rate']}}</div>
 										</div>
-										<div class="result__price">${{result['Hourly Rate']}}</div>
 									</div>
-								</div>
+								</v-flex>
 							</template>
 						</ais-results>
 
@@ -180,7 +182,8 @@
 </script>
 
 <style scoped>
-	.ais-index { margin: 12px 0; }
+	.ais-index { margin: 16px; width: 100%;}
+	.ais-results { width: 100%; display: flex;}
 	.container { padding: 64px 0 0 0; max-width: 100% !important;}
 	.filter-container { display: flex; flex-direction: column; height: 100% !important; padding: 12px; }
 	.filter-title { display: flex; border-bottom: 1px solid #616161; }

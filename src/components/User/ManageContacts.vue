@@ -52,6 +52,7 @@
 									:multiple="true"
 									:taggable="true"
 									@tag="addSkill"
+									placeholder="Select a Skill"
 								>
 								</multiselect>
 							</v-flex>
@@ -104,8 +105,7 @@
 						<td>{{ props.item['Location'] ? props.item['Location']['City'] : '' }},
 							{{ props.item['Location'] ? props.item['Location']['Country'] : '' }}
 						</td>
-						<td>{{ props.item['Role'] ? props.item['Role'].join(', ', '') : '' }}</td>
-						<td>{{ props.item['Skills'] ? props.item['Skills'].join(', ', '') : '' }}</td>
+						<td>{{ props.item['Role'] }}</td>
 						<td class="justify-center layout px-0">
 							<v-btn icon class="mx-0" @click="editItem(props.item)">
 								<v-icon color="cyan">edit</v-icon>
@@ -168,7 +168,6 @@
 				{ text: 'Level', value: 'level' },
 				{ text: 'Location', value: 'location' },
 				{ text: 'Role', value: 'role' },
-				{ text: 'Skills', value: 'skills' },
 				{ text: 'Edit/Delete', align: 'center', sortable: false }
 			],
 			editedIndex: -1,
@@ -189,11 +188,20 @@
 				'Skills': []
 			},
 			defaultItem: {
-				name: '',
-				calories: 0,
-				fat: 0,
-				carbs: 0,
-				protein: 0
+				'Name': '',
+				'Email': '',
+				'Telephone': '',
+				'Availability': '',
+				'Work Type': '',
+				'Company': '',
+				'Hourly Rate': 0,
+				'Level': '',
+				'Location': {
+					'City': '',
+					'Country': ''
+				},
+				'Role': '',
+				'Skills': []
 			}
 		}),
 		computed: {
@@ -248,6 +256,7 @@
 			},
 			close() {
 				this.dialog = false;
+				this.editedItem = this.defaultItem;
 			},
 			save() {
 				if(this.formTitle === 'New Contact') {
@@ -261,6 +270,9 @@
 	}
 </script>
 
-<style scoped>
+<style>
 	.container { padding: 64px 0 0 0; max-width: 100% !important; margin: 12px auto;}
+	.multiselect__tag{ background: #01abc1; }
+	.multiselect__tag-icon:hover{ background: #0399ad; color: white;}
+	.radio-group label { font-size: 12px;}
 </style>
