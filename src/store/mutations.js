@@ -5,6 +5,9 @@ export default {
 	SET_SKILLS(state, skills) {
 		state.skills = skills;
 	},
+	SET_NEW_SKILLS(state, newSkills) {
+		state.skills = newSkills;
+	},
 	SET_CONTACT(state, contact) {
 		state.contacts.unshift(contact);
 	},

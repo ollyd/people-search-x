@@ -18,7 +18,10 @@
 								<v-text-field color="cyan darken-1" v-model="editedItem['Telephone']" label="Telephone"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Availability']" label="Availability"></v-text-field>
+								<v-radio-group label="Availability" v-model="editedItem['Availability']" row>
+									<v-radio label="Part Time" value="Part Time" color="cyan darken-1"></v-radio>
+									<v-radio label="Full Time" value="Full Time" color="cyan darken-1"></v-radio>
+								</v-radio-group>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
 								<v-text-field color="cyan darken-1" v-model="editedItem['Work Type']" label="Work Type"></v-text-field>
@@ -224,12 +227,8 @@
 				return AlgoliaCreds;
 			},
 			addSkill(newSkill) {
-				// const tag = {
-				// 	name: newTag,
-				// 	code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
-				// }
-				// this.options.push(tag)
-				// this.value.push(tag)
+				this.skillsOptions.push(newSkill);
+				this.editedItem['Skills'].push(newSkill);
 			},
 			editItem (item) {
 				this.editedIndex = this.contacts.indexOf(item)

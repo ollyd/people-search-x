@@ -1,17 +1,17 @@
 import { db } from '../../firestore.config.js';
+// const _differenceWith = require('lodash.differencewith');
 
 export default {
 	GET_SKILLS({ commit }) {
-		// return new Promise((resolve, reject) => {
-		db.collection('skills').get()
-			.then(querySnapshot => {
-				querySnapshot.forEach(doc => {
-					commit('SET_SKILLS', doc.data().skills);
-					// console.log(doc.data().skills, 'klklk');
-				});
-				// resolve();
-			}).catch(error => console.log(error));
-		// });
+		return new Promise((resolve, reject) => {
+			db.collection('skills').get()
+				.then(querySnapshot => {
+					querySnapshot.forEach(doc => {
+						commit('SET_SKILLS', doc.data().skills);
+					});
+					resolve();
+				}).catch(error => console.log(error));
+		});
 	},
 	GET_CONTACTS({ commit }) {
 		return new Promise((resolve, reject) => {
@@ -26,31 +26,42 @@ export default {
 				}).catch(error => console.log(error));
 		});
 	},
-	ADD_CONTACT({ commit }, contact) {
-		if(contact['Skills'].length > 0) {
-			contact['Skills'] = contact['Skills'].split(',');
+	CHECK_FOR_NEW_SKILLS({ dispatch, state }, skills) {
+		const newSkills = [];
+		skills.map(skill => {
+			if(!state.skills.includes(skill)) {
+				newSkills.push(skill);
+			}
+		})
+		if(newSkills.length) {
+			return;
 		}
-		if(contact['Role'].length > 0) {
-			contact['Role'] = contact['Role'].split(',');
-		}
+		dispatch('INDEX_NEW_SKILLS', newSkills);
+	},
+	INDEX_NEW_SKILLS({ commit, state }, newSkills) {
+		newSkills = newSkills.concat(state.skills);
+		db.collection('skills').doc('5w9p1NSCmAl2KW8Q5vWt').update({ skills: newSkills })
+			.then(() => {
+				commit('SET_NEW_SKILLS', newSkills);
+				console.log('New skills updated: ', newSkills);
+			})
+			.catch(error => console.error('Error updating skills: ', error));
+	},
+	ADD_CONTACT({ commit, dispatch }, contact) {
 		db.collection('people').add(contact)
 			.then(ref => {
 				const newContact = Object.assign(contact, { id: ref.id });
+				dispatch('CHECK_FOR_NEW_SKILLS', newContact['Skills']);
 				commit('SET_CONTACT', newContact);
 				console.log('Document written with ID: ', ref.id);
 			})
 			.catch(error => console.error('Error adding document: ', error));
 	},
-	UPDATE_CONTACT({ commit }, contact) {
-		if(contact['Skills'].length > 0) {
-			contact['Skills'] = contact['Skills'].split(',');
-		}
-		if(contact['Role'].length > 0) {
-			contact['Role'] = contact['Role'].split(',');
-		}
+	UPDATE_CONTACT({ commit, dispatch }, contact) {
 		db.collection('people').doc(contact.id).update(contact)
 			.then(() => {
 				commit('UPDATE_CONTACT', contact);
+				dispatch('CHECK_FOR_NEW_SKILLS', contact['Skills']);
 				console.log('Document updated, with ID: ', contact.id)
 			})
 			.catch(error => console.error('Error updating document: ', error));
