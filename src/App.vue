@@ -8,12 +8,20 @@
 			app
 		>
 			<v-list dense>
-				<v-list-tile @click="">
+				<v-list-tile @click="goToRoute('/')">
 					<v-list-tile-action>
-						<v-icon>dashboard</v-icon>
+						<v-icon>search</v-icon>
 					</v-list-tile-action>
 					<v-list-tile-content>
-						<v-list-tile-title>Dashboard</v-list-tile-title>
+						<v-list-tile-title>Contact Search</v-list-tile-title>
+					</v-list-tile-content>
+				</v-list-tile>
+				<v-list-tile @click="goToRoute('manage-contacts')">
+					<v-list-tile-action>
+						<v-icon>person_add</v-icon>
+					</v-list-tile-action>
+					<v-list-tile-content>
+						<v-list-tile-title>Manage Contacts</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
 				<v-list-tile @click="">
@@ -55,9 +63,6 @@
 		props: {
 			source: String
 		},
-		// mounted() {
-		// 	return this.$store.dispatch('GET_CONTACTS');
-		// },
 		computed: {
 			userIsAuthenticated () {
 				return this.$store.getters.user !== null && this.$store.getters.user !== undefined
@@ -65,7 +70,11 @@
 		},
 		methods: {
 			onLogout () {
-				this.$store.dispatch('logout')
+				this.$store.dispatch('logout');
+			},
+			goToRoute(route) {
+				this.drawer = false;
+				this.$router.push(route);
 			}
 		}
 	}

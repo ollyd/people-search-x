@@ -1,5 +1,4 @@
 import { db } from '../../firestore.config.js';
-// const _differenceWith = require('lodash.differencewith');
 
 export default {
 	GET_SKILLS({ commit }) {
@@ -50,7 +49,7 @@ export default {
 		db.collection('people').add(contact)
 			.then(ref => {
 				const newContact = Object.assign(contact, { id: ref.id });
-				dispatch('CHECK_FOR_NEW_SKILLS', newContact['Skills']);
+				dispatch('CHECK_FOR_NEW_SKILLS', newContact.skills);
 				commit('SET_CONTACT', newContact);
 				console.log('Document written with ID: ', ref.id);
 			})
@@ -60,7 +59,7 @@ export default {
 		db.collection('people').doc(contact.id).update(contact)
 			.then(() => {
 				commit('UPDATE_CONTACT', contact);
-				dispatch('CHECK_FOR_NEW_SKILLS', contact['Skills']);
+				dispatch('CHECK_FOR_NEW_SKILLS', contact.skills);
 				console.log('Document updated, with ID: ', contact.id)
 			})
 			.catch(error => console.error('Error updating document: ', error));

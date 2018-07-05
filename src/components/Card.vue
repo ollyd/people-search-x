@@ -6,8 +6,8 @@
 			</v-avatar>
 		</div>
 		<v-card-title class="white" primary-title>
-			<div>
-				<h3 class="title pb-1">Kangaroo Valley Safari</h3>
+			<div class="main-content">
+				<h3 class="title pb-1">{{ Name }}</h3>
 				<div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
 			</div>
 		</v-card-title>
@@ -19,19 +19,19 @@
 
 <script>
 	export default {
-		// data() {
-		// 	return {
-		// 	}
-		// },
-		// methods: {
-
-		// }
+		props: [
+			'Name'
+			// 'Email',
+			// 'Skills'
+		],
+		methods: {
+		}
 	}
 </script>
 
 <style scoped>
 	.avatar-container {
-		background-color: #4DD0E1;
+		background-color: #B2EBF2;
 		justify-content: center;
 		align-items: center;
 		position: relative;
@@ -51,6 +51,7 @@
 		text-align: center;
 		color: #616161;
 	}
-	.card__actions { background-color: #4DD0E1; border-top: 1px solid #84FFFF !important; justify-content: center; }
+	.main-content { width: 100%; }
+	.card__actions { background-color: #B2EBF2; justify-content: center; }
 	/*.card__actions .btn { border: 1px solid #84FFFF !important; }*/
 </style>

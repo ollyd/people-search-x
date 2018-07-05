@@ -48,15 +48,15 @@
 						</v-layout>
 
 						<v-layout>
-							<v-flex>
+							<!-- <v-flex>
 								<multiselect :options="skills()" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
 									<template slot="tag" slot-scope="props"><span class="custom__tag"><span>{{ props.option.language }}</span><span class="custom__remove" @click="props.remove(props.option)">❌</span></span></template>
 							  </multiselect>
-							</v-flex>
+							</v-flex> -->
 						</v-layout>
 
 						<div class="row">
-							<div class="col-md-2 col-sm-3">
+							<!-- <div class="col-md-2 col-sm-3">
 								<ais-tree-menu :attributes="['category', 'sub_category']" :classNames="{
 									'ais-tree-menu__list': 'list-unstyled',
 									'ais-tree-menu__count': 'badge'
@@ -69,7 +69,7 @@
 								}">
 									<h3 slot="header">Price</h3>
 								</ais-price-range>
-							</div>
+							</div> -->
 							<!-- <div class="col-md-10 col-sm-9">
 								<div class="search-controls form-inline">
 									<ais-sort-by-selector :indices="[
@@ -96,9 +96,9 @@
 							<template slot-scope="{ result }">
 								<v-flex xs12 md6>
 									<div class="search-result">
-										<card></card>
+										<card v-bind="result"></card>
 
-										<div>{{skills(result['Skills'])}}</div>
+										<!-- <div>{{skills(result['Skills'])}}</div>
 										<img class="result__image img-responsive" :src="result.image">
 										<div class="result__info">
 											<h2 class="result__name">
@@ -113,7 +113,7 @@
 													<span v-else class="result__star--empty" :key="n"></span>
 												</template>
 											</div>
-											<div class="result__price">${{result['Hourly Rate']}}</div>
+											<div class="result__price">${{result['Hourly Rate']}}</div> -->
 										</div>
 									</div>
 								</v-flex>
@@ -169,11 +169,11 @@
 			},
 			credentials() {
 				return AlgoliaCreds;
-			},
-			skills(result) {
-				console.log(result, 'skills');
-				return result;
 			}
+			// skills(result) {
+			// 	console.log(result, 'skills');
+			// 	return result;
+			// }
 		},
 		computed: {
 

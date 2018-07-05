@@ -9,45 +9,45 @@
 					<v-container grid-list-md>
 						<v-layout wrap>
 							<v-flex xs12 sm6 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Name']" label="Name"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.name" label="Name"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Email']" label="Email"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.email" label="Email"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Telephone']" label="Telephone"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.telephone" label="Telephone"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
-								<v-radio-group label="Availability" v-model="editedItem['Availability']" row>
+								<v-radio-group label="Availability" v-model="editedItem.availability" row>
 									<v-radio label="Part Time" value="Part Time" color="cyan darken-1"></v-radio>
 									<v-radio label="Full Time" value="Full Time" color="cyan darken-1"></v-radio>
 								</v-radio-group>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Work Type']" label="Work Type"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.workType" label="Work Type"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Company']" label="Company"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.company" label="Company"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md3>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Hourly Rate']" label="Hourly Rate"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.hourlyRate" label="Hourly Rate"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md3>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Level']" label="Level"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.level" label="Level"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md3>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Location']['City']" label="Location: City"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.location.city" label="Location: City"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md3>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Location']['Country']" label="Location: Country"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.location.country" label="Location: Country"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm4 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem['Role']" label="Role"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model="editedItem.role" label="Role"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm8 md8>
 								<label class="typo__label">Skills</label>
 								<multiselect
-									v-model="editedItem['Skills']"
+									v-model="editedItem.skills"
 									:options="skillsOptions"
 									:multiple="true"
 									:taggable="true"
@@ -94,18 +94,18 @@
 					<v-progress-linear slot="progress" color="cyan" indeterminate></v-progress-linear>
 
 					<template slot="items" slot-scope="props">
-						<td>{{ props.item['Name'] }}</td>
-						<td>{{ props.item['Email'] }}</td>
-						<td>{{ props.item['Telephone'] }}</td>
-						<td>{{ props.item['Availability'] }}</td>
-						<td>{{ props.item['Work Type'] }}</td>
-						<td>{{ props.item['Company'] }}</td>
-						<td>${{ props.item['Hourly Rate'] }}</td>
-						<td>{{ props.item['Level'] }}</td>
-						<td>{{ props.item['Location'] ? props.item['Location']['City'] : '' }},
-							{{ props.item['Location'] ? props.item['Location']['Country'] : '' }}
+						<td>{{ props.item.name }}</td>
+						<td>{{ props.item.email }}</td>
+						<td>{{ props.item.telephone }}</td>
+						<td>{{ props.item.availability }}</td>
+						<td>{{ props.item.workType }}</td>
+						<td>{{ props.item.company }}</td>
+						<td>${{ props.item.hourlyRate }}</td>
+						<td>{{ props.item.level }}</td>
+						<td>{{ props.item.location ? props.item.location.city : '' }},
+							{{ props.item.location ? props.item.location.country : '' }}
 						</td>
-						<td>{{ props.item['Role'] }}</td>
+						<td>{{ props.item.role }}</td>
 						<td class="justify-center layout px-0">
 							<v-btn icon class="mx-0" @click="editItem(props.item)">
 								<v-icon color="cyan">edit</v-icon>
@@ -172,36 +172,36 @@
 			],
 			editedIndex: -1,
 			editedItem: {
-				'Name': '',
-				'Email': '',
-				'Telephone': '',
-				'Availability': '',
-				'Work Type': '',
-				'Company': '',
-				'Hourly Rate': 0,
-				'Level': '',
-				'Location': {
-					'City': '',
-					'Country': ''
+				'name': '',
+				'email': '',
+				'telephone': '',
+				'availability': '',
+				'workType': '',
+				'company': '',
+				'hourlyRate': 0,
+				'level': '',
+				'location': {
+					'city': '',
+					'country': ''
 				},
-				'Role': '',
-				'Skills': []
+				'role': '',
+				'skills': []
 			},
 			defaultItem: {
-				'Name': '',
-				'Email': '',
-				'Telephone': '',
-				'Availability': '',
-				'Work Type': '',
-				'Company': '',
-				'Hourly Rate': 0,
-				'Level': '',
-				'Location': {
-					'City': '',
-					'Country': ''
+				'name': '',
+				'email': '',
+				'telephone': '',
+				'availability': '',
+				'workType': '',
+				'company': '',
+				'hourlyRate': 0,
+				'level': '',
+				'location': {
+					'city': '',
+					'country': ''
 				},
-				'Role': '',
-				'Skills': []
+				'role': '',
+				'skills': []
 			}
 		}),
 		computed: {
@@ -236,7 +236,7 @@
 			},
 			addSkill(newSkill) {
 				this.skillsOptions.push(newSkill);
-				this.editedItem['Skills'].push(newSkill);
+				this.editedItem.skills.push(newSkill);
 			},
 			editItem (item) {
 				this.editedIndex = this.contacts.indexOf(item)
