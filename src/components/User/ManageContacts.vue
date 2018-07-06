@@ -18,13 +18,27 @@
 								<v-text-field color="cyan darken-1" v-model="editedItem.telephone" label="Telephone"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
+								<v-radio-group label="Rating" v-model="editedItem.rating" row>
+									<v-radio label="1" value="1" color="cyan darken-1"></v-radio>
+									<v-radio label="2" value="2" color="cyan darken-1"></v-radio>
+									<v-radio label="3" value="3" color="cyan darken-1"></v-radio>
+									<v-radio label="4" value="4" color="cyan darken-1"></v-radio>
+									<v-radio label="5" value="5" color="cyan darken-1"></v-radio>
+								</v-radio-group>
+							</v-flex>
+							<v-flex xs12 sm6 md4>
 								<v-radio-group label="Availability" v-model="editedItem.availability" row>
+									<v-radio label="None" value="None" color="cyan darken-1"></v-radio>
 									<v-radio label="Part Time" value="Part Time" color="cyan darken-1"></v-radio>
 									<v-radio label="Full Time" value="Full Time" color="cyan darken-1"></v-radio>
 								</v-radio-group>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
-								<v-text-field color="cyan darken-1" v-model="editedItem.workType" label="Work Type"></v-text-field>
+								<v-radio-group label="Work Type" v-model="editedItem.workType" row>
+									<v-radio label="Freelance" value="Freelance" color="cyan darken-1"></v-radio>
+									<v-radio label="Contract" value="Contract" color="cyan darken-1"></v-radio>
+									<v-radio label="Permanent" value="Permanent" color="cyan darken-1"></v-radio>
+								</v-radio-group>
 							</v-flex>
 							<v-flex xs12 sm6 md4>
 								<v-text-field color="cyan darken-1" v-model="editedItem.company" label="Company"></v-text-field>
@@ -97,6 +111,11 @@
 						<td>{{ props.item.name }}</td>
 						<td>{{ props.item.email }}</td>
 						<td>{{ props.item.telephone }}</td>
+						<td>
+							<template v-for="n in 5">
+								<v-icon size="8px" dark v-if="n <= props.item.rating" :key="n">star</v-icon>
+							</template>
+						</td>
 						<td>{{ props.item.availability }}</td>
 						<td>{{ props.item.workType }}</td>
 						<td>{{ props.item.company }}</td>
@@ -161,6 +180,7 @@
 				{ text: 'Name', value: 'name' },
 				{ text: 'Email', value: 'email' },
 				{ text: 'Telephone', value: 'telephone' },
+				{ text: 'Rating', value: 'rating' },
 				{ text: 'Availability', value: 'availability' },
 				{ text: 'Work Type', value: 'work type' },
 				{ text: 'Company', value: 'company' },
@@ -175,6 +195,7 @@
 				'name': '',
 				'email': '',
 				'telephone': '',
+				'rating': 0,
 				'availability': '',
 				'workType': '',
 				'company': '',
@@ -191,6 +212,7 @@
 				'name': '',
 				'email': '',
 				'telephone': '',
+				'rating': 0,
 				'availability': '',
 				'workType': '',
 				'company': '',
@@ -256,7 +278,9 @@
 			},
 			close() {
 				this.dialog = false;
-				this.editedItem = this.defaultItem;
+				setTimeout(() => {
+					this.editedItem = this.defaultItem;
+				}, 1000);
 			},
 			save() {
 				if(this.formTitle === 'New Contact') {
@@ -271,8 +295,20 @@
 </script>
 
 <style>
-	.container { padding: 64px 0 0 0; max-width: 100% !important; margin: 12px auto;}
-	.multiselect__tag{ background: #01abc1; }
-	.multiselect__tag-icon:hover{ background: #0399ad; color: white;}
-	.radio-group label { font-size: 12px;}
+	.container {
+		padding: 48px 12px 12px 12px;
+		max-width: 100% !important;
+		margin: 12px auto !important;
+	}
+	.multiselect__tag {
+		background: #01abc1;
+	}
+	.multiselect__tag-icon:hover {
+		background: #0399ad;
+		color: white;
+	}
+	.v-input--radio-group__input label {
+		font-size: 12px;
+		width: 100%;
+	}
 </style>

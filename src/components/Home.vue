@@ -1,14 +1,14 @@
 <template>
-	<v-container grid-list-xl fill-height>
+	<v-container grid-list-lg>
 		<ais-index
 			:index-name="credentials().algoliaIndexName"
 			:appId="credentials().algoliaAppID"
 			:apiKey="credentials().algoliaApiKey"
 			:query-parameters="{
-				restrictSearchableAttributes: ['Name', 'Email']
+				restrictSearchableAttributes: ['name', 'email', 'role']
 			}">
 			<v-layout xs12 row wrap>
-				<v-flex xs12 md4 fill-height style="flex: 1;">
+				<v-flex xs12 md6 lg4 fill-height style="flex: 1;">
 					<v-card class="filter-container">
 						<v-layout column>
 							<v-flex class="filter-title">
@@ -17,8 +17,24 @@
 							</v-flex>
 							<v-flex class="search-box-container">
 								<ais-search-box>
-									<div class="input-group input-group--text-field primary--text" v-bind:class="{ 'input-group--focused': focused }">
-										<label for="name-search">Search by name or email</label>
+									<div class="v-input v-text-field" v-bind:class="{ 'v-input--is-focused cyan--text text--darken-1': focused }">
+										<div class="v-input__control">
+											<div class="v-input__slot">
+												<div class="v-text-field__slot">
+													<label aria-hidden="true" class="v-label" v-bind:class="{ 'v-label--active cyan--text text--darken-1': focused }" style="left: 0px; right: auto; position: absolute;">Search by Name, Email or Job Role</label>
+													<ais-input
+														@focus.native="onFocus"
+														@blur.native="onBlur"
+														id="name-search"
+														:classNames="{
+															'ais-input': 'form-control'
+														}"
+													/>
+												</div>
+											</div>
+											<div class="v-text-field__details"></div>
+										</div>
+										<!-- <label for="name-search">Search by Name, Email or Job Role</label>
 										<div class="input-group__input">
 											<ais-input
 												v-on:focus.native="onFocus"
@@ -29,100 +45,166 @@
 												}"
 											/>
 										</div>
-										<div class="input-group__details"><!----></div>
+										<div class="input-group__details"></div> -->
 
-										<span class="input-group-btn">
+										<!-- <span class="input-group-btn">
 											<ais-clear :classNames="{'ais-clear': 'btn btn-default'}">
 												<v-icon size="18px">remove</v-icon>
 											</ais-clear>
 											<button class="btn btn-default" type="submit">
 												<v-icon size="18px">search</v-icon>
 											</button>
-										</span>
+										</span> -->
 									</div><!-- /input-group -->
 								</ais-search-box>
 							</v-flex>
-							<ais-refinement-list attribute-name="Skills">
-								<h3 slot="skills">Skills</h3>
-							</ais-refinement-list>
 						</v-layout>
 
 						<v-layout>
+							<v-flex>
+								<ais-refinement-list attribute-name="skills">
+									<h4 slot="header" style="margin-bottom: 6px; color: #00acc1;">Refine by Job Skills</h4>
+								</ais-refinement-list>
+							</v-flex>
+						</v-layout>
+
+						<v-divider></v-divider>
+
+						<v-layout>
+							<v-flex>
+								<h4 slot="header" style="color: #00acc1;">Hourly Rate</h4>
+								<ais-price-range attribute-name="hourlyRate" :classNames="{
+									'ais-price-range__input': 'form-control'
+								}">
+								</ais-price-range>
+							</v-flex>
+						</v-layout>
+
+						<v-divider></v-divider>
+
+						<v-layout>
+							<v-flex>
+								<ais-refinement-list attribute-name="availability">
+									<h4 slot="header" style="margin-bottom: 6px; color: #00acc1;">Availability</h4>
+								</ais-refinement-list>
+							</v-flex>
+						</v-layout>
+
+						<v-divider></v-divider>
+
+						<v-layout>
+							<v-flex>
+								<ais-refinement-list attribute-name="workType">
+									<h4 slot="header" style="margin-bottom: 6px; color: #00acc1;">Work Type</h4>
+								</ais-refinement-list>
+							</v-flex>
+						</v-layout>
+
+						<v-divider></v-divider>
+
+
+						<v-layout>
+							<v-flex>
+								<ais-rating attribute-name="rating">
+									<h4 slot="header"  style="margin-bottom: 6px; color: #00acc1;">Rating</h4>
+								</ais-rating>
+							</v-flex>
+						</v-layout>
+
+						<v-divider></v-divider>
+
+						<!-- <v-layout> -->
 							<!-- <v-flex>
 								<multiselect :options="skills()" :multiple="true" :close-on-select="false" :clear-on-select="false" :hide-selected="true" :preserve-search="true" placeholder="Pick some" label="name" track-by="name" :preselect-first="true">
 									<template slot="tag" slot-scope="props"><span class="custom__tag"><span>{{ props.option.language }}</span><span class="custom__remove" @click="props.remove(props.option)">❌</span></span></template>
 							  </multiselect>
 							</v-flex> -->
-						</v-layout>
+						<!-- </v-layout> -->
 
-						<div class="row">
-							<!-- <div class="col-md-2 col-sm-3">
-								<ais-tree-menu :attributes="['category', 'sub_category']" :classNames="{
+						<!-- 	<ais-tree-menu :attributes="['category', 'sub_category']" :classNames="{
 									'ais-tree-menu__list': 'list-unstyled',
 									'ais-tree-menu__count': 'badge'
 								}">
 									<h3 slot="header">Browse by</h3>
-								</ais-tree-menu>
+								</ais-tree-menu> -->
+<!--
+						<v-layout row class="ais-price-range">
+							<v-flex
+								shrink
+								style="width: 64px"
+							>
+								<v-text-field
+									@keyup="hourlyRateFrom($event)"
+									v-model="price[0]"
+									class="mt-0"
+									hide-details
+									single-line
+									type="number"
+								></v-text-field>
+							</v-flex>
 
-								<ais-price-range attribute-name="Hourly Rate" :classNames="{
-									'ais-price-range__input': 'form-control'
-								}">
-									<h3 slot="header">Price</h3>
-								</ais-price-range>
-							</div> -->
-							<!-- <div class="col-md-10 col-sm-9">
-								<div class="search-controls form-inline">
-									<ais-sort-by-selector :indices="[
-										{name: 'ikea', label: 'Relevance'},
-										{name: 'ikea_price_asc', label: 'Lowest price'},
-										{name: 'ikea_price_desc', label: 'Highest price'}
+							<v-flex>
+								<v-range-slider
+									v-model="price"
+									:max="1500"
+									:min="0"
+									:step="10"
+								></v-range-slider>
+							</v-flex>
+
+							<v-flex class="form-control ais-price-range__input--to"
+								shrink
+								style="width: 64px"
+							>
+								<v-text-field
+									@keyup="hourlyRateTo()"
+									v-model="price[1]"
+									class="mt-0"
+									hide-details
+									single-line
+									type="number"
+								></v-text-field>
+							</v-flex>
+						</v-layout> -->
+
+
+					<!-- 	<v-layout>
+							<v-flex>
+								<ais-sort-by-selector :indices="[
+									{name: 'people', label: 'Most Relevant'},
 									]"
-									:classNames="{'ais-sort-by-selector': 'form-control' }"
-									/>
+								>
+								<template slot-scope="{ indexName, label }">
+									<option :value="indexName">Sort by: {{ label }}</option>
+								</template>
+								</ais-sort-by-selector>
+							</v-flex>
+						</v-layout> -->
+<!--
+								<ais-results-per-page-selector :options="[12, 24, 48]" :classNames="{'ais-results-per-page-selector': 'form-control' }"/>
 
-									<ais-results-per-page-selector :options="[12, 24, 48]" :classNames="{'ais-results-per-page-selector': 'form-control' }"/>
+								<ais-powered-by />
 
-									<ais-powered-by />
-
-									<ais-stats/>
-								</div>
-							</div> -->
-						</div>
+								<ais-stats/> -->
+							<!-- </div> -->
+						<!-- </v-flex> -->
 					</v-card>
 				</v-flex>
-				<v-flex fill-height>
+				<v-flex xs12 md6 lg8 fill-height>
 					<v-layout row wrap>
 						<ais-results>
 							<template slot-scope="{ result }">
 								<v-flex xs12 md6>
 									<div class="search-result">
 										<card v-bind="result"></card>
-
-										<!-- <div>{{skills(result['Skills'])}}</div>
-										<img class="result__image img-responsive" :src="result.image">
-										<div class="result__info">
-											<h2 class="result__name">
-												<ais-highlight :result="result" attribute-name="Name"/>
-											</h2>
-											<h2 class="result__skills">
-												<ais-highlight :result="result" attribute-name="Skills" v-model="result" v-on:change="facets()"/>
-											</h2>
-											<div class="result__rating">
-												<template v-for="n in 5">
-													<span v-if="n <= result.rating" class="result__star" :key="n"></span>
-													<span v-else class="result__star--empty" :key="n"></span>
-												</template>
-											</div>
-											<div class="result__price">${{result['Hourly Rate']}}</div> -->
-										</div>
 									</div>
 								</v-flex>
 							</template>
 						</ais-results>
 
 						<ais-no-results/>
-
-					<!-- 	<ais-pagination class="pagination" :classNames="{
+<!--
+						<ais-pagination class="pagination" :classNames="{
 							'ais-pagination': 'pagination',
 							'ais-pagination__item--active': 'active',
 							'ais-pagination__item--disabled': 'disabled'
@@ -157,7 +239,8 @@
 		data() {
 			return {
 				focused: false,
-				options: []
+				options: [],
+				price: [0, 2000]
 			}
 		},
 		methods: {
@@ -167,13 +250,12 @@
 			onBlur() {
 				this.focused = false;
 			},
+			// hourlyRateFrom(event) {
+			// 	document.getElementsByClassName('ais-price-range__input--from').value = event.target.value;
+			// },
 			credentials() {
 				return AlgoliaCreds;
 			}
-			// skills(result) {
-			// 	console.log(result, 'skills');
-			// 	return result;
-			// }
 		},
 		computed: {
 
@@ -181,17 +263,38 @@
 	}
 </script>
 
-<style scoped>
-	.ais-index { margin: 16px; width: 100%;}
-	.ais-results { width: 100%; display: flex;}
-	.container { padding: 64px 0 0 0; max-width: 100% !important;}
-	.filter-container { display: flex; flex-direction: column; height: 100% !important; padding: 12px; }
+<style>
+	.ais-index {width: 100%; max-width: 1280px;}
+	.ais-results { width: 100%; display: flex; flex-wrap: wrap; }
+	.container { margin: 60px 12px 12px 12px; padding: 6px; max-width: 100%; display: flex;
+    justify-content: center;}
+	.filter-container { display: flex; flex-direction: column; height: 100%; padding: 12px; }
 	.filter-title { display: flex; border-bottom: 1px solid #616161; }
 	.filter-title .subheading { padding-left: 6px; font-weight: 500; }
 	.title { font-weight: 400; line-height: initial !important;}
 	.search-box-container { padding-top: 3px !important; }
-	.input-group.primary--text.input-group--focused  { color: #26C6DA !important; }
-	.primary--text input, .primary--text textarea { caret-color: #26C6DA !important; }
-	.input-group { padding: 12px 0 0 !important; }
-	.input-group label { font-size: 14px !important; line-height: 18px !important; }
+	.v-slider__track-fill, .v-slider__thumb {background-color: #00acc1 !important;}
+	.v-text-field__slot label { pointer-events: none; }
+	.form-control.ais-price-range__input--from,
+	.form-control.ais-price-range__input--to {
+		height: 32px;
+		max-width: 64px;
+	}
+	/* -- Checkbox inputs -- */
+   	.ais-refinement-list__checkbox {
+		position: relative;
+		margin-right: 8px;
+		transition: color 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+   	}
+   	/* -- Rating override --*/
+   	.ais-rating__item a {
+		text-decoration: none;
+		color: white;
+   	}
+   	.ais-rating__star.ais-rating__star--empty {
+		font-size: 12px;
+		position: relative;
+		top: -1px;
+		margin-left: 2px;
+   	}
 </style>

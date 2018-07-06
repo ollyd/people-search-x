@@ -82,16 +82,24 @@
 
 <style lang="stylus">
 	@import '../node_modules/vuetify/src/stylus/settings/_colors'
-	.toolbar { box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.1); }
-	.btn--active .btn__content:before, .btn:focus .btn__content:before {
+	.v-btn--active .btn__content:before, .btn:focus .btn__content:before {
 		background-color: $grey.darken-4;
 	}
-	.btn:hover .btn__content:before {
+	.v-btn:hover .btn__content:before {
 		background-color: $grey.darken-2;
 	}
 	main {
 		display: flex;
 		justify-content: center;
 		height: 100%;
+	}
+	.v-toolbar {
+		box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.1);
+	}
+	.v-toolbar__content {
+		height: 48px !important;
+	}
+	.v-navigation-drawer {
+		margin-top: 48px !important;
 	}
 </style>
