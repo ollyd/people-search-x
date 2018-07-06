@@ -267,7 +267,7 @@
 	.ais-index {width: 100%; max-width: 1280px;}
 	.ais-results { width: 100%; display: flex; flex-wrap: wrap; }
 	.container { margin: 60px 12px 12px 12px; padding: 6px; max-width: 100%; display: flex;
-    justify-content: center;}
+	justify-content: center;}
 	.filter-container { display: flex; flex-direction: column; height: 100%; padding: 12px; }
 	.filter-title { display: flex; border-bottom: 1px solid #616161; }
 	.filter-title .subheading { padding-left: 6px; font-weight: 500; }
@@ -281,20 +281,26 @@
 		max-width: 64px;
 	}
 	/* -- Checkbox inputs -- */
-   	.ais-refinement-list__checkbox {
+	.ais-refinement-list__checkbox {
 		position: relative;
 		margin-right: 8px;
 		transition: color 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-   	}
-   	/* -- Rating override --*/
-   	.ais-rating__item a {
+	}
+	/* -- Rating override -- */
+	.ais-rating__item a {
 		text-decoration: none;
 		color: white;
-   	}
-   	.ais-rating__star.ais-rating__star--empty {
+	}
+	.ais-rating__star.ais-rating__star--empty {
 		font-size: 12px;
 		position: relative;
 		top: -1px;
 		margin-left: 2px;
-   	}
+	}
+	/* -- badge counts -- */
+	.ais-rating__count,
+	.ais-refinement-list__count {
+		font-size: 12px;
+	    color: #00acc1;
+	}
 </style>

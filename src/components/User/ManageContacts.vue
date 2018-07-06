@@ -146,7 +146,7 @@
 			</v-card>
 		</ais-index>
 
-		<confirm-dialog
+		<confirm-dialog v-if="confirmDialog"
 			:confirmDialog="confirmDialog"
 			@closeConfirmDialog="confirmDialog = false"
 			@deleteConfirmed="deleteConfirmed"
@@ -295,11 +295,10 @@
 </script>
 
 <style>
-	.container {
-		padding: 48px 12px 12px 12px;
-		max-width: 100% !important;
-		margin: 12px auto !important;
-	}
+	.container { margin: 60px 12px 12px 12px; padding: 6px; max-width: 100%; display: flex;
+	justify-content: center;}
+	table.v-table th,
+	table.v-table td {padding: 0 12px !important;}
 	.multiselect__tag {
 		background: #01abc1;
 	}
