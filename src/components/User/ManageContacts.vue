@@ -44,7 +44,7 @@
 								<v-text-field color="cyan darken-1" v-model="editedItem.company" label="Company"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md3>
-								<v-text-field color="cyan darken-1" v-model="editedItem.hourlyRate" label="Hourly Rate"></v-text-field>
+								<v-text-field color="cyan darken-1" v-model.number="editedItem.hourlyRate" label="Hourly Rate" type="number"></v-text-field>
 							</v-flex>
 							<v-flex xs12 sm6 md3>
 								<v-text-field color="cyan darken-1" v-model="editedItem.level" label="Level"></v-text-field>
@@ -119,7 +119,7 @@
 						<td>{{ props.item.availability }}</td>
 						<td>{{ props.item.workType }}</td>
 						<td>{{ props.item.company }}</td>
-						<td>${{ props.item.hourlyRate }}</td>
+						<td>${{ parseInt(props.item.hourlyRate) }}</td>
 						<td>{{ props.item.level }}</td>
 						<td>{{ props.item.location ? props.item.location.city : '' }},
 							{{ props.item.location ? props.item.location.country : '' }}

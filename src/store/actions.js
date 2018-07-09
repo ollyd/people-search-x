@@ -1,4 +1,4 @@
-import { db } from '../../firestore.config.js';
+import { db, auth } from '../../firestore.config.js';
 
 export default {
 	GET_SKILLS({ commit }) {
@@ -72,14 +72,14 @@ export default {
 			})
 			.catch(error => console.error('Error deleting document: ', error));
 	},
-	userCredentials({ commit }, user) {
-		commit('setLoading', false);
-		const setUser = {
+	USER_CREDENTIALS({ commit }, user) {
+		commit('SET_LOADING', false);
+		const SET_USER = {
 			id: user.uid
 		}
-		commit('setUser', setUser);
+		commit('SET_USER', SET_USER);
 	},
-	errorCode({ commit }, err) {
+	ERROR_CODE({ commit }, err) {
 		let error;
 		switch (err.code) {
 		case 'auth/email-already-in-use':
@@ -94,40 +94,39 @@ export default {
 		default:
 			error = err
 		}
-		commit('setLoading', false);
-		commit('setError', error);
-		console.log(error);
+		commit('SET_LOADING', false);
+		commit('SET_ERROR', error);
 	},
-	signUserUp ({ commit, dispatch }, payload) {
-		commit('setLoading', true);
-		commit('clearError');
-		db.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+	SIGN_USER_UP({ commit, dispatch }, payload) {
+		commit('SET_LOADING', true);
+		commit('CLEAR_ERROR');
+		auth.createUserWithEmailAndPassword(payload.email, payload.password)
 			.then(user => {
-				dispatch('userCredentials', user);
+				dispatch('USER_CREDENTIALS', user);
 			})
 			.catch(err => {
-				dispatch('errorCode', err);
+				dispatch('ERROR_CODE', err);
 			})
 	},
-	signUserIn ({ commit, dispatch }, payload) {
-		commit('setLoading', true);
-		commit('clearError');
-		db.auth().signInWithEmailAndPassword(payload.email, payload.password)
+	SIGN_USER_IN({ commit, dispatch }, payload) {
+		commit('SET_LOADING', true);
+		commit('CLEAR_ERROR');
+		auth.signInWithEmailAndPassword(payload.email, payload.password)
 			.then(user => {
-				dispatch('userCredentials', user);
+				dispatch('USER_CREDENTIALS', user);
 			})
 			.catch(err => {
-				dispatch('errorCode', err);
+				dispatch('ERROR_CODE', err);
 			})
 	},
-	autoSignIn ({ commit }, payload) {
-		commit('setUser', { id: payload.uid });
+	AUTO_SIGN_IN({ commit }, payload) {
+		commit('SET_USER', { id: payload.uid });
 	},
-	logout ({ commit }) {
-		db.auth().signOut()
-		commit('setUser', null);
+	logout({ commit }) {
+		auth.signOut()
+		commit('SET_USER', null);
 	},
-	clearError ({ commit }) {
-		commit('clearError');
+	CLEAR_ERROR({ commit }) {
+		commit('CLEAR_ERROR');
 	}
 }

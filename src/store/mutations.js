@@ -19,17 +19,16 @@ export default {
 		const index = state.contacts.findIndex(item => item.id === contact.id);
 		state.contacts.splice(index, 1, contact);
 	},
-	setUser(state, payload) {
+	SET_USER(state, payload) {
 		state.user = payload;
 	},
-	setLoading(state, payload) {
+	SET_LOADING(state, payload) {
 		state.loading = payload;
 	},
-	setError(state, payload) {
-		console.log(payload);
+	SET_ERROR(state, payload) {
 		state.error = payload;
 	},
-	clearError(state) {
+	CLEAR_ERROR(state) {
 		state.error = null;
 	}
 }

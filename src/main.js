@@ -6,6 +6,7 @@ import InstantSearch from 'vue-instantsearch';
 import App from './App.vue';
 import router from './router';
 import { store } from './store';
+import { auth } from '../firestore.config.js';
 
 import AlertCmp from './components/Shared/Alert.vue';
 
@@ -22,12 +23,10 @@ new Vue({
 	store,
 	render: h => h(App),
 	created() {
-		// firebase.initializeApp(firebaseConfig);
-		// firebase.firestore();
-		// firebase.auth().onAuthStateChanged((user) => {
-		// 	if (user) {
-		// 		this.$store.dispatch('autoSignIn', user);
-		// 	}
-		// });
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				this.$store.dispatch('AUTO_SIGN_IN', user);
+			}
+		});
 	}
 });

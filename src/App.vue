@@ -8,7 +8,7 @@
 			app
 		>
 			<v-list dense>
-				<v-list-tile @click="goToRoute('/')">
+				<v-list-tile @click="goToRoute('/search')">
 					<v-list-tile-action>
 						<v-icon>search</v-icon>
 					</v-list-tile-action>
@@ -36,7 +36,7 @@
 		</v-navigation-drawer>
 		<v-toolbar app fixed clipped-left class="cyan darken-4">
 			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-			<v-toolbar-title>StackMark</v-toolbar-title>
+			<v-toolbar-title>Contact DB</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-xs-only">
 				<v-btn

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '~/components/Home';
+import Search from '~/components/Search';
 import Profile from '~/components/User/Profile';
 import Signup from '~/components/User/Signup';
 import Signin from '~/components/User/Signin';
@@ -14,8 +14,14 @@ export default new Router({
 		{
 			path: '/',
 			name: 'Home',
-			component: Home
-			// beforeEnter: AuthGuard
+			component: Search,
+			beforeEnter: AuthGuard
+		},
+		{
+			path: '/search',
+			name: 'Search',
+			component: Search,
+			beforeEnter: AuthGuard
 		},
 		{
 			path: '/profile',
@@ -36,7 +42,8 @@ export default new Router({
 		{
 			path: '/manage-contacts',
 			name: 'Manage',
-			component: ManageContacts
+			component: ManageContacts,
+			beforeEnter: AuthGuard
 		}
 	],
 	mode: 'history'

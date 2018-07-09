@@ -8,7 +8,7 @@
 				restrictSearchableAttributes: ['name', 'email', 'role']
 			}">
 			<v-layout xs12 row wrap>
-				<v-flex xs12 md6 lg4 fill-height style="flex: 1;">
+				<v-flex xs12 md4 lg4 fill-height style="flex: 1;">
 					<v-card class="filter-container">
 						<v-layout column>
 							<v-flex class="filter-title">
@@ -190,11 +190,11 @@
 						<!-- </v-flex> -->
 					</v-card>
 				</v-flex>
-				<v-flex xs12 md6 lg8 fill-height>
+				<v-flex xs12 md8 lg8 fill-height>
 					<v-layout row wrap>
 						<ais-results>
 							<template slot-scope="{ result }">
-								<v-flex xs12 md6>
+								<v-flex xs12 md6 lg4>
 									<div class="search-result">
 										<card v-bind="result"></card>
 									</div>
