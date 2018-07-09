@@ -79,23 +79,9 @@ export default {
 		}
 		commit('SET_USER', SET_USER);
 	},
-	ERROR_CODE({ commit }, err) {
-		let error;
-		switch (err.code) {
-		case 'auth/email-already-in-use':
-			error.message = 'The email address provided is already registered.'
-			break;
-		case 'auth/user-not-found':
-			error.message = 'The email address provided isn\'t recognised.'
-			break;
-		case 'auth/wrong-password':
-			error.message = 'The password provided is incorrect.'
-			break;
-		default:
-			error = err
-		}
+	ERROR_CODE({ commit }, error) {
 		commit('SET_LOADING', false);
-		commit('SET_ERROR', error);
+		commit('SET_ERROR', error.message);
 	},
 	SIGN_USER_UP({ commit, dispatch }, payload) {
 		commit('SET_LOADING', true);
@@ -122,7 +108,7 @@ export default {
 	AUTO_SIGN_IN({ commit }, payload) {
 		commit('SET_USER', { id: payload.uid });
 	},
-	logout({ commit }) {
+	LOGOUT({ commit }) {
 		auth.signOut()
 		commit('SET_USER', null);
 	},

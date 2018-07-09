@@ -70,7 +70,8 @@
 		},
 		methods: {
 			onLogout () {
-				this.$store.dispatch('logout');
+				this.$store.dispatch('LOGOUT');
+				this.$router.go('/');
 			},
 			goToRoute(route) {
 				this.drawer = false;
